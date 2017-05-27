@@ -1,0 +1,12 @@
+<h3>Dodaj TUska</h3>
+<%= form_for @task do |t| %>
+  <div class="form-group">
+    <%= t.label :title, "Tytuł" %>
+    <%= t.text_field :title, class: "form-control"%>
+  </div>
+  <div class="form-group">
+    <%= t.label :description, "Opis" %>
+    <%= t.text_area :description, class: "form-control" %>
+  </div>
+  <%= t.submit "Dodaj TUska", class: "btn btn-primary" %>
+<% end %>
