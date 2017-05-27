@@ -1,0 +1,24 @@
+<h3>Lista tasków</h3>
+<%= link_to "Dodaj TUska", new_task_path, class: "btn btn-success" %>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Nazwa</th>
+      <th>Opis</th>
+      <th>Status</th>
+      <th>Akcje</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tasks.each do |task| %>
+      <tr>
+        <td><%= task.id %></td>
+        <td><%= task.title %></td>
+        <td><%= task.description %></td>
+        <td><%= task.finished ? "Ukończony" : "Nieukończony" %></td>
+        <td></td>
+      </tr>
+      <% end %>
+  </tbody>
+</table>
