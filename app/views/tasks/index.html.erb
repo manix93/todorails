@@ -1,24 +1,41 @@
-<h3>Lista tasków</h3>
-<%= link_to "Dodaj TUska", new_task_path, class: "btn btn-success" %>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>Nazwa</th>
-      <th>Opis</th>
-      <th>Status</th>
-      <th>Akcje</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @tasks.each do |task| %>
+<% if user_signed_in? %>
+  <h3>Lista tasków</h3>
+  <%= link_to "Dodaj TUska", new_task_path, class: "btn btn-success" %>
+  <table class="table table-striped">
+    <thead>
       <tr>
-        <td><%= task.id %></td>
-        <td><%= task.title %></td>
-        <td><%= task.description %></td>
-        <td><%= task.finished ? "Ukończony" : "Nieukończony" %></td>
-        <td></td>
+        <th>#</th>
+        <th>Nazwa</th>
+        <th>Opis</th>
+        <th>Status</th>
+        <% if current_user.admin? %>
+        <th>ID Użytkownika</th>
+        <% end %>
+        <th>Akcje</th>
       </tr>
-      <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @tasks.each do |task| %>
+        <tr>
+          <td><%= task.id %></td>
+          <td><%= task.title %></td>
+          <td><%= task.description %></td>
+          <td><%= task.finished ? "Ukończony" : "Nieukończony" %></td>
+          <% if current_user.admin? %>
+          <td><%= task.user_id %></td>
+          <% end %>
+          <td>
+            <% if !task.finished %>
+              <%= link_to "Zakończ", edit_task_path(task), class: "btn btn-info btn-xs" %>
+            <% else %>
+              Brak
+            <% end %>
+          </td>
+        </tr>
+        <% end %>
+    </tbody>
+  </table>
+  <%= link_to('Wyloguj', destroy_user_session_path, :method => :delete, class: "btn btn-danger") %>
+<% else %>
+  <h1><%= link_to "Zaloguj się aby dodać taska", new_user_session_path %></h1>
+<% end %>
