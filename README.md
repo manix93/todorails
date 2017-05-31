@@ -1,3 +1,3 @@
 # README
 
-APP link: http://todorails:manix.pro
+APP link: [a link](http://todorails:manix.pro)
